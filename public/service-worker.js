@@ -4,7 +4,7 @@ const FILES_TO_CACHE = [
     "assets/styles/styles.css",
     "assets/js/index.js",
     "assets/js/db.js",
-    "dist/manifest.json",
+    "manifest.webmanifest",
     "icons/icon-192x192.png",
     "icons/icon-512x512.png",
     "https://cdn.jsdelivr.net/npm/chart.js@2.8.0",
