@@ -7,4 +7,4 @@ Here's the deployed application: [https://stormy-badlands-97008.herokuapp.com/](
 
 The following images show the application’s appearance.
 
-![Budget Screenshot](public/images/budget.png)
+![Budget Screenshot](public/assets/images/budget.png)

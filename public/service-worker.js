@@ -1,12 +1,13 @@
 const FILES_TO_CACHE = [
     "/",
     "index.html",
-    "styles.css",
-    "index.js",
-    "dist/bundle.js",
+    "assets/styles/styles.css",
+    "assets/js/index.js",
+    "assets/js/db.js",
     "dist/manifest.json",
     "icons/icon-192x192.png",
     "icons/icon-512x512.png",
+    "https://cdn.jsdelivr.net/npm/chart.js@2.8.0",
     "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
 ];
 
@@ -60,11 +61,21 @@ self.addEventListener("fetch", (event) => {
       return;
     }
 
-    event.respondWith(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.match(event.request).then(response => {
-                return response || fetch(event.request);
-            });
-        })
-    );
+  // use cache first for all other requests for performance
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // request is not in cache. make network request and cache the response
+      return caches.open(DATA_CACHE_NAME).then(cache => {
+        return fetch(event.request).then(response => {
+          return cache.put(event.request, response.clone()).then(() => {
+            return response;
+          });
+        });
+      });
+    })
+  );
 });
